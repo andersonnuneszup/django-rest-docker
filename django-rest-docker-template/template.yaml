@@ -1,0 +1,4 @@
+name: django-rest-docker-template
+description: Template of a django rest framework project in docker
+types:
+  - app-template

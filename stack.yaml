@@ -1,0 +1,14 @@
+description: Stack intended to be an architecture of a backend project for creating api's. This project uses Python Django and the Postgresql DBMS. It also uses Docker to facilitate the implementation of the project in the development environment. This stack streamlines the development process allowing the developer to save time setting up the environment, allowing the team to move on to the next steps.
+name: django-rest-docker
+display-name: django-rest-docker
+picture: stack.png
+category: backend # Ref: https://docs.stackspot.com/latest/docs/creators-guide/yaml/#category
+compatibility: # Put a list of technologies compatible with the stack
+  - python
+technologies: # Ref: https://docs.stackspot.com/latest/docs/creators-guide/yaml/#technologies 
+  - docker 
+about: docs/about.md
+use-cases:
+  - title: Use Case
+    content: docs/use-case.md
+    stackfile: stackfiles/default.yaml

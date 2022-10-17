@@ -1,0 +1,46 @@
+version: '3'
+
+volumes:
+  db-data-djangostack:
+
+services:
+  postgres_djangostack:
+    build:
+      context: .
+      dockerfile: Dockerfile-pg
+    volumes:
+      - db-data-django-stack:/pgdata-djangostack
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: blank
+      POSTGRES_DB: djangostack
+      POSTGRES_USER: djangostack
+      PGDATA: /pgdata-djangostack
+    volumes:
+      - ./scripts:/docker-entrypoint-initdb.d
+
+  djangostack:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    depends_on:
+      - postgres_djangostack
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_DEBUG: 'true'
+      DJANGO_ALLOWED_HOSTS: '*'
+      DB_NAME: djangostack
+      DB_HOST: postgres_djangostack
+      DB_PORT: 5432
+      DB_USER: djangostack
+      DB_PASSWORD: blank
+
+      STAGE: local
+
+    stdin_open: true
+    tty: true
+    command: ["runserver", "0.0.0.0:8000"]
